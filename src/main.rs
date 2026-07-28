@@ -88,6 +88,8 @@ async fn main() -> anyhow::Result<()> {
         };
         let key = format!("notes/{}", hash.to_hex()); // whatever key scheme you want
         doc.set_hash(author, key, hash, size).await?;
+        let data=blobs.get_bytes(hash).await?;
+        println!("{:?}",data);
         println!("linked {} ({} bytes)", hash.to_hex(), size);
     }
     let ticket = doc.share(ShareMode::Write, Default::default()).await?;
